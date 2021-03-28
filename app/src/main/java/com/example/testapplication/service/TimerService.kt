@@ -1,10 +1,14 @@
 package com.example.testapplication.service
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
-import android.os.CountDownTimer
-import android.os.IBinder
+import android.media.MediaPlayer
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.*
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.example.testapplication.utils.PreferencesManager
 
 
@@ -36,6 +40,12 @@ class TimerService : Service() {
 
             override fun onFinish() {
                 Log.i(TAG, "Timer finished")
+                // Set vibration
+                vibrate()
+
+                // Set play sound
+                playSound()
+
                 PreferencesManager.saveIsFinished(true,applicationContext)
                 sendBroadcast(mIntent)
             }
@@ -63,4 +73,18 @@ class TimerService : Service() {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
+    private fun playSound() {
+        val alarmSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(applicationContext, alarmSound)
+        mediaPlayer.start()
+    }
+
+    private fun vibrate() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(200)
+        }
+    }
 }

@@ -190,12 +190,6 @@ class MainActivity : AppCompatActivity() {
     private fun processFinished() {
         processCancelTimer()
 
-        // Set vibration
-        vibrate()
-
-        // Set play sound
-        playSound()
-
         // Showing dialog
         showDialogSuccess()
     }
@@ -233,21 +227,6 @@ class MainActivity : AppCompatActivity() {
             if (intent != null) {
                 updateUI()
             }
-        }
-    }
-
-    private fun playSound() {
-        val alarmSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val mediaPlayer: MediaPlayer = MediaPlayer.create(applicationContext, alarmSound)
-        mediaPlayer.start()
-    }
-
-    private fun vibrate() {
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(200)
         }
     }
 
