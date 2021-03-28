@@ -3,4 +3,8 @@
     <string name="cancel">Cancel</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="hours">Hours</string>
+    <string name="min">Min</string>
+    <string name="sec">Sec</string>
 </resources>
